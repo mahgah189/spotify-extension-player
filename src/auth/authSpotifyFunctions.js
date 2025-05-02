@@ -15,9 +15,6 @@ export const getSpotifyAccessToken = async (clientId, code) => {
   const verifier = localStorage.getItem("verifier");
   const tokenEndpoint = "https://accounts.spotify.com/api/token";
 
-  console.log(code);
-  console.log(verifier);
-
   const body = new URLSearchParams();
   body.append("client_id", clientId);
   body.append("grant_type", "authorization_code");
@@ -35,6 +32,7 @@ export const getSpotifyAccessToken = async (clientId, code) => {
       headers: headers,
       body: body
     });
+    localStorage.removeItem("verifier");
     return await response.json();
   } catch (error) {
     console.log(error);
