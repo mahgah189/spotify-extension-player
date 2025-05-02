@@ -1,4 +1,4 @@
-const {onRequest} = require("firebase-functions/v2/https");
+const {onRequest, onCall} = require("firebase-functions/v2/https");
 const logger = require("firebase-functions/logger");
 const corsAnywhere = require("cors-anywhere");
 const cors = require("cors")({origin: true});
@@ -51,10 +51,21 @@ exports.storeToken = onRequest(
       if (request.method !== "POST") {
         return response.status(405).send("POST method not detected");
       }
-  
+
       const data = request.body;
-  
-      response.send(data);
+
+      try {
+        const writeUser = await getFirestore()
+          .collection("users")
+          .doc(data.data[0])
+          .set(data.data[1])
+
+        response.send(data)
+      } catch (error) {
+        console.log(error);
+        response.status(500).json({error});
+      }
+
     });
   },
 );

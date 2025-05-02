@@ -13,7 +13,7 @@ export const redirectToAuthCodeFlow = async (clientId, challenge) => {
 
 export const getSpotifyAccessToken = async (clientId, code) => {
   const verifier = localStorage.getItem("verifier");
-  const tokenEndpoint = "https://accounts.spotify.com/api/token";
+  const endpoint = "https://accounts.spotify.com/api/token";
 
   const body = new URLSearchParams();
   body.append("client_id", clientId);
@@ -27,13 +27,33 @@ export const getSpotifyAccessToken = async (clientId, code) => {
   };
 
   try {
-    const response = await fetch(tokenEndpoint, {
+    const response = await fetch(endpoint, {
       method: "POST",
       headers: headers,
       body: body
     });
     localStorage.removeItem("verifier");
     return await response.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getUserProfile = async (token) => {
+  const endpoint = "https://api.spotify.com/v1/me";
+  const headers = {
+    "Authorization": `Bearer ${token}`
+  };
+
+  try {
+    const response = await fetch(endpoint, {
+      headers: headers
+    });
+    if (!response.ok) {
+      throw new Error(`Error: ${response.status}`);
+    }
+    const data = await response.json();
+    return data;
   } catch (error) {
     console.log(error);
   }
