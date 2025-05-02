@@ -1,14 +1,19 @@
 import './App.css'
-import ButtonLogin from "./components/buttons/ButtonLogin/ButtonLogin.jsx";
+import React from "react";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+
+import WebPlayerLayout from "./components/layouts/WebPlayerLayout/WebPlayerLayout.jsx";
+import Callback from "./components/pages/Callback/Callback.jsx";
 
 function App() {
-
   return (
-    <div className="extension-viewport">
-      <ButtonLogin>
-        Login
-      </ButtonLogin>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/callback" element={<Callback />} />
+        <Route path="/" element={<WebPlayerLayout />}>
+        </Route>
+      </Routes>
+    </BrowserRouter>
   )
 }
 

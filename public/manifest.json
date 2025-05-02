@@ -3,6 +3,7 @@
   "version": "0.1",
   "manifest_version": 3,
   "action": {
-    "default_popup": "index.html"
+    "default_popup": "index.html",
+    "default_icon": "assets/music-solid.svg"
   }
 }
