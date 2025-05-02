@@ -5,6 +5,12 @@ const cors = require("cors")({origin: true});
 
 const tokenEndpoint = "https://accounts.spotify.com/api/token";
 
+const {initializeApp} = require("firebase-admin/app");
+const {getFirestore} = require("firebase-admin/firestore");
+
+initializeApp();
+const db = getFirestore();
+
 const corsServer = corsAnywhere.createServer({
   originWhitelist: [
     "http://localhost:5173",
@@ -38,6 +44,20 @@ const getSpotifyAccessToken = async (clientId, clientSecret) => {
     throw new Error("Unable to fetch Spotify access token");
   }
 };
+
+exports.storeToken = onRequest(
+  (request, response) => {
+    cors(request, response, async() => {
+      if (request.method !== "POST") {
+        return response.status(405).send("POST method not detected");
+      }
+  
+      const data = request.body;
+  
+      response.send(data);
+    });
+  },
+);
 
 exports.getSpotifyToken = onRequest(
   {secrets: ["SPOTIFY_CLIENT_SECRET"]},
