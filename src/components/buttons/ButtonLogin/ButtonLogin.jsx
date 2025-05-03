@@ -2,7 +2,7 @@ import "./ButtonLogin.css";
 import React from "react";
 import { login, getToken } from "../../../auth/authGetTokens.js";
 
-import { ClientIdContext } from "../../../App.jsx";
+import { ClientIdContext } from "../../context/ContextProvider.jsx";
 
 function ButtonLogin(props) {
   const clientId = React.useContext(ClientIdContext);

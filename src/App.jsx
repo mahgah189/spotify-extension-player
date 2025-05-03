@@ -4,14 +4,11 @@ import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 
 import WebPlayerLayout from "./components/layouts/WebPlayerLayout/WebPlayerLayout.jsx";
 import Callback from "./components/pages/Callback/Callback.jsx";
+import { ContextProvider } from "./components/context/ContextProvider";
 
-const ClientIdContext = React.createContext();
-
-export default function App() {
-  const clientId = import.meta.env.VITE_CLIENT_ID;
-
+function App() {
   return (
-    <ClientIdContext.Provider value={ clientId }>
+    <ContextProvider>
       <BrowserRouter>
         <Routes>
           <Route path="/callback" element={<Callback />} />
@@ -19,8 +16,8 @@ export default function App() {
           </Route>
         </Routes>
       </BrowserRouter>
-    </ClientIdContext.Provider>
+    </ContextProvider>
   )
 }
 
-export { ClientIdContext };
+export default App;

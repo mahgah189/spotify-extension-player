@@ -5,12 +5,14 @@ import { Outlet } from "react-router-dom";
 import ButtonLogin from "../../buttons/ButtonLogin/ButtonLogin.jsx";
 import WebPlayer from "../../player/WebPlayer/WebPlayer.jsx";
 
+import { LoggedInContext } from "../../context/ContextProvider.jsx";
+
 function WebPlayerLayout() {
-  const [isLoggedIn, updateIsLoggedin] = React.useState(false);
+  const { isLoggedIn, checkLogin } = React.useContext(LoggedInContext);
 
   React.useEffect(() => {
-
-  }, [isLoggedIn]);
+    checkLogin();
+  }, [])
 
   return (
     <div className="webplayer-wrapper">

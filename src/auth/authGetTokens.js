@@ -1,3 +1,4 @@
+import React from "react";
 import { redirectToAuthCodeFlow, getSpotifyAccessToken, getUserProfile, generateCodeVerifier, generateCodeChallenge } from "./authSpotifyFunctions";
 import { initializeApp } from 'firebase/app';
 import { getFunctions, httpsCallable } from 'firebase/functions';
@@ -21,12 +22,6 @@ export const login = async (id) => {
 
   redirectToAuthCodeFlow(id, challenge);
 };
-
-export const checkLogin = () => {
-  return sessionStorage.getItem("accessToken") 
-    ? true 
-    : false
-}
 
 export const getToken = async (id, code) => {
   const accessToken = await getSpotifyAccessToken(id, code);
