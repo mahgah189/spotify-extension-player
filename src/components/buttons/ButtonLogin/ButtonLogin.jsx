@@ -2,24 +2,15 @@ import "./ButtonLogin.css";
 import React from "react";
 import { login, getToken } from "../../../auth/authGetTokens.js";
 
+import { ClientIdContext } from "../../../App.jsx";
+
 function ButtonLogin(props) {
-  const spotClientId = import.meta.env.VITE_CLIENT_ID;
-  // const params = new URLSearchParams(window.location.search);
-  // const code = params.get("code");
-
-  // React.useEffect(() => {
-
-  //   console.log(localStorage.getItem("verifier"));
-
-  //   if (localStorage.getItem("verifier")) {
-  //     getToken(spotClientId, code);
-  //   }
-  // }, [])
+  const clientId = React.useContext(ClientIdContext);
 
   return (
     <>
       <button
-        onClick={() => {login(spotClientId)}}
+        onClick={() => {login(clientId)}}
       >
         {props.children}
       </button>
